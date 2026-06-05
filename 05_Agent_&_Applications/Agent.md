@@ -56,3 +56,12 @@ Agent 是一个以 LLM 为核心，具备**感知理解、自主规划、存储�
 | Research Agent | Deep Research、Perplexity |
 | General Agent  | AutoGPT、BabyAGI          |
 | Domain Agent   | 金融分析、医疗诊断等垂直领域 Agent     |
+
+---
+
+## 参考资料
+
+- [Anthropic - Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [Anthropic - Equipping Agents for the Real World with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
+- [LangChain - What is an AI Agent?](https://www.langchain.com/what-is-an-ai-agent)
+- [Lilian Weng - LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)

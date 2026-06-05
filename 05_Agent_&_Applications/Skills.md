@@ -188,3 +188,8 @@ Return Markdown with:
 Skills 可以理解为 Agent 的“可复用任务包”。它通过 `SKILL.md` 定义触发条件和执行流程，通过可选资源目录承载脚本、文档、模板和示例，并通过渐进式上下文披露降低上下文成本。
 
 它不是普通 Prompt 的简单替代品，也不是 MCP 这样的外部连接协议；更准确地说，Skills 是把可重复的专家经验、操作流程和任务资源结构化，让 Agent 在需要时稳定调用。
+
+## 参考资料
+
+- [Anthropic Engineering](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
+- [Claude Docs - Agent Skills](https://docs.claude.com/en/docs/claude-code/skills)
