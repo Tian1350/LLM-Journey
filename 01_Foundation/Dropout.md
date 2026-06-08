@@ -30,7 +30,17 @@ Dropout 是一种极其简单却高效的正则化手段，主要用于缓解模
 
 ---
 
+## Zoneout：一种用于RNN的正则化手段
+
+Zoneout是专门针对RNN设计的一种正则化手段，是一种时间维度的Dropout。它会在每个时刻，以一定概率随机令部分隐藏单元保持上一刻的值。
+
+**核心本质**：
+在时间展开的网络中，动态且随机地引入了**恒等映射**，相当于时间维度上的残差连接。
+
+---
+
 ## 参考资料
 
 - [Dropout: A Simple Way to Prevent Neural Networks from Overfitting (Srivastava et al., 2014)](https://jmlr.org/papers/v15/srivastava14a.html)
 - [Attention Is All You Need (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762)
+- [Zoneout: Regularizing RNNs by Randomly Preserving Hidden Activations (Krueger et al., 2016)](https://arxiv.org/abs/1606.01305)

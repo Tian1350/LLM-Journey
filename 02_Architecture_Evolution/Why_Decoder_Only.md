@@ -16,7 +16,7 @@ Transformer 原始论文提出了 Encoder-Decoder 结构，但后续大模型几
 
 **Encoder-Decoder** 保留了完整的 Transformer 结构，编码端理解输入，解码端生成输出。在输入输出有明确边界的任务（翻译、摘要）上表现优异，但参数被拆分到两个模块，scale up 时效率不如单栈结构。
 
-**Decoder-Only** 只保留解码器，通过因果掩码让每个 token 只能看到左侧上下文，天然适配自回归生成。
+**Decoder-Only** 只保留不带交叉注意力的解码器，通过因果掩码让每个 token 只能看到左侧上下文，天然适配自回归生成。
 
 ---
 
