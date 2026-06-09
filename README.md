@@ -6,7 +6,7 @@
 
 | 章节 | 主题 | 内容 |
 |---|---|---|
-| [01_Foundation](./01_Foundation) | 基础理论 | Transformer、位置编码、归一化等核心模型基础 |
+| [01_Foundation](01_Foundation_&_Mechanism) | 基础理论 | Transformer、位置编码、归一化等核心模型基础 |
 | [02_Architecture_Evolution](./02_Architecture_Evolution) | 架构演进 | Decoder-only、MHA/MQA/GQA/MLA、LLaMA 系列、视觉语言模型等架构发展 |
 | [03_Training_&_Alignment](./03_Training_&_Alignment) | 训练与对齐 | SFT、PEFT、RLHF、DPO、分布式训练 |
 | [04_Inference_&_Engineering](./04_Inference_&_Engineering) | 推理与工程 | KV Cache、vLLM、PagedAttention、量化技术 |
@@ -16,16 +16,16 @@
 
 ### 01_Foundation：基础理论
 
-- [Transformer 架构深度剖析](./01_Foundation/Transformer_Architecture.md)
-- [位置编码数学推导](./01_Foundation/Positional_Encoding.md)
-- [归一化方法](./01_Foundation/Normalization.md)
+- [Transformer 架构深度剖析](01_Foundation_&_Mechanism/Transformer_Architecture.md)
+- [位置编码数学推导](01_Foundation_&_Mechanism/Positional_Encoding.md)
+- [归一化方法](01_Foundation_&_Mechanism/Normalization.md)
 
 ### 02_Architecture_Evolution：架构演进
 
-- [MHA、MQA、GQA、MLA 注意力机制对比](02_Architecture_Evolution/MHA_MQA_GQA_MLA.md)
+- [MHA、MQA、GQA、MLA 注意力机制对比](01_Foundation_&_Mechanisms/MHA_MQA_GQA_MLA.md)
 - [为什么主流大模型采用 Decoder-only 架构](./02_Architecture_Evolution/Why_Decoder_Only.md)
 - [LLaMA 系列](./02_Architecture_Evolution/LLaMA_Family.md)
-- [视觉语言模型](./02_Architecture_Evolution/Vision_Language_Models.md)
+- [视觉语言模型](03_Multimodal_&_Cross_Domain/Vision_Language_Models.md)
 
 ### 03_Training_&_Alignment：训练与对齐
 
