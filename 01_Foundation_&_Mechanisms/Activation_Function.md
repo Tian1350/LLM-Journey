@@ -13,7 +13,7 @@ $$\text{GELU}(x) = 0.5x \left(1 + \tanh\left(\sqrt{\frac{2}{\pi}} (x + 0.044715 
 
 ## 2. SwiGLU (Swish Gated Linear Unit)
 
-SwiGLU 是目前开源 LLM（如 LLaMA 系列、ChatGLM 等）的标配。它是 GLU（门控线性单元）的变体，使用 Swish 函数替代了传统的 Sigmoid 门控。
+SwiGLU 是目前开源 LLM（如 LLaMA 系列、ChatGLM 等）的标配。它是 GLU（门控线性单元）的变体，使用 Swish 函数替代了传统的 Sigmoid 门控。本质上，SwiGLU不是激活函数，而是Swish激活函数与GLU结合的层结构。
 
 * **前置知识Swish 函数**：公式为 $ \text{Swish}(x) = x \cdot \sigma(\beta x) $，其中 $\sigma$ 为 Sigmoid 函数， $\beta$ 为可学习的参数。
 * **SwiGLU 公式**：在 LLM 的前馈网络（FFN）实际应用中，通常会省略偏置项以提升计算和存储效率。其对输入进行两组不同的线性变换，一组经过 Swish 激活后作为“门控”，控制另一组的信息流：
@@ -22,6 +22,58 @@ $$\text{SwiGLU}(x) = \text{Swish}(xW_1) \otimes (xW_2)$$
     1.  **更平滑的梯度流动**：去除了 ReLU 的硬截断，在负值区域也保留了微弱的梯度。
     2.  **增强的信息选择能力**：门控机制赋予了模型动态过滤和放缩特征的能力；Swish是一个非单调的激活函数，信息表达更细腻。
     3.  **更强的特征表达**：实验证明，相比于标准的 GELU，SwiGLU 在同等计算量下能显著提升语言建模的收敛速度和最终性能。
+
+### FFN 中的具体实现：标准 FFN vs SwiGLU FFN
+
+**标准 FFN（GPT/BERT 时代）** 的数据流：
+
+```
+x → Linear(d → 4d) → GELU → Dropout → Linear(4d → d) → 输出
+```
+
+用代码表示：
+```python
+h = gelu(x @ W1)      # W1: [d, 4d]，升维 + 激活
+h = dropout(h)
+out = h @ W2          # W2: [4d, d]，降维
+```
+
+只有两个权重矩阵 $W_1, W_2$，激活函数是逐元素作用在升维后的 $h$ 上。
+
+**SwiGLU FFN（LLaMA 时代）** 的数据流：
+
+```
+x ──→ Linear_gate(d → d_ff) → Swish ─┐
+  │                                    ⊗ (逐元素相乘) → Linear_down(d_ff → d) → 输出
+  └──→ Linear_up(d → d_ff) ───────────┘
+```
+
+用代码表示：
+```python
+gate = swish(x @ W_gate)   # W_gate: [d, d_ff]，门控分支
+up   = x @ W_up            # W_up:   [d, d_ff]，信息分支（无激活）
+out  = (gate * up) @ W_down # W_down: [d_ff, d]，降维
+```
+
+**关键区别：**
+
+| 维度 | 标准 FFN | SwiGLU FFN |
+|------|---------|-----------|
+| 权重矩阵数量 | 2（$W_1, W_2$） | 3（$W_{gate}, W_{up}, W_{down}$） |
+| 激活作用方式 | 逐元素作用于升维结果 | 一个分支做门控，逐元素乘另一个分支 |
+| Dropout | 常用 | LLM 中通常省略（靠数据量和其他正则化） |
+
+**为什么要把隐藏维度缩到 $\frac{2}{3}$：**
+
+SwiGLU 多了一个权重矩阵（3 个 vs 2 个），如果隐藏维度仍用 $4d$，参数量会从 $2 \times 4d^2 = 8d^2$ 涨到 $3 \times 4d^2 = 12d^2$。
+
+为了让 SwiGLU FFN 和标准 FFN 的参数量/计算量对齐，实践中把隐藏维度从 $4d$ 缩小到约 $\frac{2}{3} \times 4d = \frac{8}{3}d$：
+
+$$3 \times d \times \frac{8}{3}d = 8d^2$$
+
+这样参数量就和标准 FFN 持平了。LLaMA 中 $d_{ff}$ 通常取 $\frac{8}{3}d$ 并向上取整到硬件友好的倍数（如 256 的倍数）。
+
+所以"GELU → SwiGLU"的改动不只是换个激活函数，而是把整个 FFN 从"两矩阵 + 逐元素激活"重构为"三矩阵 + 门控结构"，同时调整隐藏维度保持计算量不变。
 
 ## 3. Softmax (归一化指数函数)
 
