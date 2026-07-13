@@ -12,11 +12,13 @@
 | [04_Training_&_Alignment](./04_Training_&_Alignment) | 训练与对齐 | SFT、PEFT、强化学习对齐、分布式训练、混合精度 |
 | [05_Inference_&_Optimization](./05_Inference_&_Optimization) | 推理与优化 | KV Cache、FlashAttention、量化、采样、Scaling Law |
 | [06_Agent_&_Applications](./06_Agent_&_Applications) | Agent 与应用 | Agent、Harness、MCP、RAG、Prompt Engineering、Skills |
+| [07_Frontier_&_Interpretability](./07_Frontier_&_Interpretability) | 前沿与可解释性 | 新兴发现、可解释性研究（J-space & J-lens 等） |
 
 ## 目录导航
 
 ### 01_Foundation_&_Mechanisms：基础与机制
 
+- [Tokenizer 分词器](./01_Foundation_&_Mechanisms/Tokenizer.md)
 - [Transformer 架构](./01_Foundation_&_Mechanisms/Transformer_Architecture.md)
 - [位置编码](./01_Foundation_&_Mechanisms/Positional_Encoding.md)
 - [归一化方法](./01_Foundation_&_Mechanisms/Normalization.md)
@@ -33,6 +35,7 @@
 - [Mamba 家族](./02_Architecture_Evolution/Mamba_Family.md)
 - [混合专家模型 (MoE)](./02_Architecture_Evolution/Mixture_of_Experts.md)
 - [扩散模型](./02_Architecture_Evolution/Diffusion_Models.md)
+- [扩散语言模型 (Diffusion LLM)](./02_Architecture_Evolution/Diffusion_LLM.md)
 
 ### 03_Multimodal_&_Cross_Domain：多模态与跨领域
 
@@ -67,6 +70,10 @@
 - [Skills](./06_Agent_&_Applications/Skills.md)
 - [OpenClaw](./06_Agent_&_Applications/OpenClaw.md)
 
+### 07_Frontier_&_Interpretability：前沿与可解释性
+
+- [J-space 与 J-lens（全局工作空间）](./07_Frontier_&_Interpretability/J-space_&_J-lens.md)
+
 ## 项目结构
 
 ```text
@@ -78,9 +85,11 @@ My-LLM-Journey/
 │   ├── MHA_MQA_GQA_MLA.md
 │   ├── Normalization.md
 │   ├── Positional_Encoding.md
+│   ├── Tokenizer.md
 │   └── Transformer_Architecture.md
 ├── 02_Architecture_Evolution/
 │   ├── BERT_Family.md
+│   ├── Diffusion_LLM.md
 │   ├── Diffusion_Models.md
 │   ├── LLaMA_Family.md
 │   ├── Mamba_Family.md
@@ -111,6 +120,8 @@ My-LLM-Journey/
 │   ├── Prompt_Engineering.md
 │   ├── RAG.md
 │   └── Skills.md
+├── 07_Frontier_&_Interpretability/
+│   └── J-space_&_J-lens.md
 ├── assets/
 ├── LICENSE
 └── README.md
